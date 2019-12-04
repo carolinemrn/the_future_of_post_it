@@ -17,10 +17,11 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
 
-from app.views import IndexView
-
-
+from app.views import IndexView, LogView, RegisterView
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$', IndexView.as_view(), name='app_index')
+    url(r'^$', IndexView.as_view(), name='app_index'),
+    path('register/login/', LogView.as_view(), name='app_login'),
+    path('register/', RegisterView.as_view(), name='app_register'),
 ]
+

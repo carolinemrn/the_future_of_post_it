@@ -7,9 +7,10 @@ from the_future_of_post_it import settings
 
 class PostItForm(ModelForm):
     title = forms.CharField(max_length=100)
+    task = forms.CharField(max_length=100)
     createdAt = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS)
     toDoFor = forms.DateField(input_formats=settings.DATE_INPUT_FORMATS)
 
     class Meta:
         model = PostIt
-        fields = ('title', 'content', 'createdAt', 'toDoFor')
+        fields = ('title', 'task', 'createdAt', 'toDoFor')

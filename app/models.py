@@ -22,7 +22,6 @@ class Task(models.Model):
 
 class PostIt(models.Model):
     title = models.CharField(null=False, blank=False, default="Titre", max_length=100)
-    content = models.CharField(null=False, blank=False, default="Contenu", max_length=500)
     createdAt = models.DateField(default=date.today)
     toDoFor = models.DateField(null=False, blank=False, default=date.today)
     tasks = models.ManyToManyField(Task, related_name='postits', through='PostItTask')

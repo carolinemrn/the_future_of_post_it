@@ -12,11 +12,10 @@ from django.views.generic import FormView, ListView
 from app.forms.login import LoginForm
 from app.forms.postit import PostItForm
 from app.forms.register import RegisterForm
-from app.models import Person, PostIt
+from app.models import Person, PostIt, Task
 
 
-# @login_required
-class IndexView(ListView):
+class IndexView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     template_name = 'index.html'
     model = PostIt
@@ -72,11 +71,13 @@ class PostItView(FormView):
         return reverse('app_index')
 
     def form_valid(self, form):
-        post_it = PostIt.objects.create(title=form.cleaned_data['title'],
-                                        content=form.cleaned_data['content'],
-                                        createdAt=form.cleaned_data['createdAt'],
-                                        toDoFor=form.cleaned_data['toDoFor'])
-        post_it.save()
+        task = Task.objects.create(description=form.cleaned_data['task'])
+        if not task:
+            return HttpResponseRedirect('EEEEEEEEEEEE')
+        postIt = PostIt.objects.create(title=form.cleaned_data['title'],
+                                       createdAt=form.cleaned_data['createdAt'],
+                                       toDoFor=form.cleaned_data['toDoFor'])
+        postIt.tasks.add(task)
         return HttpResponseRedirect(self.get_success_url())
 
 

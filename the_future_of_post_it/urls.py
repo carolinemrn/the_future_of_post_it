@@ -16,12 +16,16 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import path
+from django.contrib.auth import views as auth_views
 
-from app.views import IndexView, LogView, RegisterView
+from app.views import IndexView, LogView, RegisterView, PostItView, LogOutView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', IndexView.as_view(), name='app_index'),
-    path('register/login/', LogView.as_view(), name='app_login'),
+    path('login/', LogView.as_view(), name='app_login'),
     path('register/', RegisterView.as_view(), name='app_register'),
+    path('add-postit/', PostItView.as_view(), name='app_postit'),
+    path('logout/', LogOutView.as_view(), name='app_logout'),
 ]
 

@@ -1,0 +1,47 @@
+:root {
+    --primary: #39fb39;
+}
+
+.text-primary {
+  color: #000000 !important;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #fb9214;
+  border-color: #fb9214;
+}
+
+.card-pi {
+  margin: 10px;
+    padding: 2%;
+    background-color: #ffffa5;
+    box-shadow: 2px 4px 6px #444;
+    -moz-box-shadow: 2px 4px 6px #444;
+    -webkit-box-shadow: 2px 4px 6px #444;
+    transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+    -webkit-transform: rotate(2deg);
+    -o-transform: rotate(2deg);
+    -ms-transform: rotate(2deg);
+    border-bottom-right-radius: 60px 10px;
+}
+.caro-t-nul{
+  display: none;
+}
+.caro-t-moche{
+  display: none;
+}
+.card-body {
+  padding: 0 !important;
+}
+
+.card-body {
+    padding: 100px;
+}
+
+.bg-image {
+  background-image: url("../img/2788058.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}

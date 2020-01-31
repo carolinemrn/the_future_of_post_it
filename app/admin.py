@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from app.models import Person, PostIt, Task, PostItTask
 
-
 class PostItTaskInlineAdmin(admin.StackedInline):
     model = PostItTask
     extra = 0

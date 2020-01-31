@@ -24,12 +24,14 @@ class PostIt(models.Model):
     title = models.CharField(null=False, blank=False, default="Titre", max_length=100)
     createdAt = models.DateField(default=date.today)
     toDoFor = models.DateField(null=False, blank=False, default=date.today)
-    tasks = models.ManyToManyField(Task, related_name='postits', through='PostItTask')
+    # tasks = models.ForeignKey(Task, related_name='tasks_postit', through='PostItTask')
+    user = models.ForeignKey(Person, on_delete=models.CASCADE, null=None, default=None)
 
     def __str__(self):
-        return f'{str(self.title)} {str(self.content)}'
+        return f'{str(self.title)}'
 
 
 class PostItTask(models.Model):
     post_it = models.ForeignKey(PostIt, on_delete=models.CASCADE)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task = models.ManyToManyField(Task)
+

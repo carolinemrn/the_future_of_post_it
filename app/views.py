@@ -7,22 +7,23 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, UpdateView, DeleteView
 
 from app.forms.login import LoginForm
 from app.forms.postit import PostItForm
 from app.forms.register import RegisterForm
-from app.models import Person, PostIt, Task
+from app.forms.task import TaskForm
+from app.models import Person, PostIt, Task, PostItTask
 
 
 class IndexView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     template_name = 'index.html'
-    model = PostIt
+    model = PostItTask
 
     def get_context_data(self, **kwargs):
         result = super().get_context_data(**kwargs)
-        result['title'] = 'Tout les post-it'
+        result['title'] = 'Vos post-it'
         return result
 
 
@@ -71,15 +72,50 @@ class PostItView(FormView):
         return reverse('app_index')
 
     def form_valid(self, form):
-        task = Task.objects.create(description=form.cleaned_data['task'])
-        if not task:
-            return HttpResponseRedirect('EEEEEEEEEEEE')
+        # task = Task.objects.create(description=form.cleaned_data['task'])
         postIt = PostIt.objects.create(title=form.cleaned_data['title'],
                                        createdAt=form.cleaned_data['createdAt'],
-                                       toDoFor=form.cleaned_data['toDoFor'])
-        postIt.tasks.add(task)
+                                       toDoFor=form.cleaned_data['toDoFor'],
+                                       user=Person.objects.get(user=self.request.user))
+        tasks = form.cleaned_data['task']
+        postItTask = PostItTask(post_it=postIt)
+        postItTask.save()
+        for task in tasks:
+            postItTask.task.add(task)
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class TaskView(FormView):
+    template_name = 'task.html'
+    form_class = TaskForm
+
+    def get_success_url(self):
+        return reverse('app_postit')
+
+    def form_valid(self, form):
+        description = form.cleaned_data['description']
+        task = Task(description=description)
+        task.save()
         return HttpResponseRedirect(self.get_success_url())
 
 
 class LogOutView(LogoutView):
     next_page = '/login'
+
+
+class PostItUpdate(UpdateView):
+    template_name = 'post-it-update.html'
+    model = PostItTask
+    form_class = PostItForm
+
+    def get_success_url(self):
+        return reverse('app_index')
+
+
+class PostItDelete(DeleteView):
+    template_name = 'post-it-delete.html'
+    model = PostItTask
+    form_class = PostItForm
+
+    def get_success_url(self):
+        return reverse('app_index')

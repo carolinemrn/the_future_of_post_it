@@ -3,28 +3,7 @@
 
 
 {% block content %}
-    <!DOCTYPE html>
-    <html lang="en">
 
-    <head>
-
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-
-        <title>THE FUTURE OF POST-IT</title>
-
-        <!-- Custom fonts for this template-->
-        <link href="{% static '/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-              rel="stylesheet">
-
-        <!-- Custom styles for this template-->
-        <link href="{% static '/css/sb-admin-2.min.css' %}" rel="stylesheet">
-
-    </head>
 
     <body id="page-top">
 
@@ -93,10 +72,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
-                                <a href="{% url 'app_logout' %}">DECONNEXION</a>
-                                <img class="img-profile rounded-circle"
-                                     src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">NOM</span>
+                                <a class="text-primary" href="{% url 'app_logout' %}">DECONNEXION</a>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -128,38 +105,38 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
+                    <!-- Content Row -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">{{ title }}</h1>
                         <a href="{% url 'app_postit' %}"
-                           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">ADD A TASK</a>
+                           class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">ADD A POST-IT</a>
                     </div>
 
-                    <!-- Content Row -->
+                    <!-- Page Heading -->
                     <div class="row">
 
                         {#            <div class="col-lg-6 mb-4">#}
 
                         <!-- Approach -->
                         {% for object in object_list %}
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">{{ object.title }}</h6>
-                                </div>
+                            <div class="card-pi shadow mb-4">
+                                <h6 class="m-0 font-weight-bold text-primary">{{ object.post_it.title }}</h6>
+                                <a class="edit-postit" href="{% url 'app_update' object.pk %}"><i class="far fa-edit"></i></a>
+                                <a class="edit-postit" href="{% url 'app_delete' object.pk %}"><i class="far fa-trash-alt"></i></a>
+                                <p>A faire pour le : {{ object.post_it.toDoFor|date:"d/m/Y" }}</p>
 
-                                <div class="card-body">
-                                    {% for tasks in object.tasks.all %}
-                                    <ul>
-                                        <li>{{ tasks.description }}</li>
-                                    </ul>
-                                    {% endfor %}
-                                </div>
+
+                                {% for task in object.task.all %}
+                                    <div class="card-body">
+                                        <input type="checkbox" name="task[]" value="{{ task }}">{{ task }}
+                                    </div>
+                                {% endfor %}
                             </div>
                         {% endfor %}
 
                         {#            </div>#}
                     </div>
+
 
                 </div>
                 <!-- /.container-fluid -->
@@ -171,7 +148,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
+                        <span>MARIN Caroline - LPWEB</span>
                     </div>
                 </div>
             </footer>
@@ -187,26 +164,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="{% static '/vendor/jquery/jquery.min.js' %}"></script>
@@ -225,8 +182,13 @@
     <script src="{% static '/js/demo/chart-area-demo.js' %}"></script>
     <script src="{% static '/js/demo/chart-pie-demo.js' %}"></script>
 
+    <script type="text/javascript">
+        function myFunction() {
+            document.getElementById("panel").style.display = "block";
+        }
+    </script>
+
     </body>
 
-    </html>
 
 {% endblock %}

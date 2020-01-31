@@ -43,6 +43,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -120,8 +121,19 @@ STATICFILES_DIRS = (
 
 # Date format
 
-DATE_INPUT_FORMATS = ['%d/%m/%Y']
+DATE_INPUT_FORMATS = ['%d/%m/%Y', '%d/%m/%y']
 
 # Login url
 
 LOGIN_URL = '/login/'
+
+# Locale Path
+
+# LOCALE_PATHS = (
+#     os.path.join(BASE_DIR, 'locale'),
+# )
+#
+# LANGUAGES = (
+#     ('en', _('English')),
+#     ('fr', _('French')),
+# )

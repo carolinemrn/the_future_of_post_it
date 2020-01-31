@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-from app.views import IndexView, LogView, RegisterView, PostItView, LogOutView
+from app.views import IndexView, LogView, RegisterView, PostItView, LogOutView, TaskView, PostItUpdate, PostItDelete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +27,8 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='app_register'),
     path('add-postit/', PostItView.as_view(), name='app_postit'),
     path('logout/', LogOutView.as_view(), name='app_logout'),
+    path('add-task/', TaskView.as_view(), name='app_task'),
+    path('update-postit/<int:pk>', PostItUpdate.as_view(), name='app_update'),
+    path('delete-postit/<int:pk>', PostItDelete.as_view(), name='app_delete'),
 ]
 

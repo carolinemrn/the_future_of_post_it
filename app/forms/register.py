@@ -8,9 +8,8 @@ from app.models import Person
 class RegisterForm(ModelForm):
     username = forms.CharField(max_length=200, min_length=4,
                                widget=widgets.TextInput)
-    email = forms.EmailField(max_length=200, min_length=4,
-                             widget=widgets.TextInput(attrs={'placeholder': 'email'}))
-    password1 = forms.CharField(max_length=200, min_length=4,    widget=forms.PasswordInput)
+    email = forms.EmailField(max_length=200, min_length=4)
+    password1 = forms.CharField(max_length=200, min_length=4, widget=forms.PasswordInput)
     password2 = forms.CharField(max_length=200, min_length=4, widget=forms.PasswordInput)
 
     class Meta:
@@ -20,7 +19,7 @@ class RegisterForm(ModelForm):
     def clean_username(self):
         username = self.cleaned_data['username']
         if not username.isalnum():
-            self.add_error('username', 'Only alphanum chars allowed !')
+            self.add_error('username', 'Le pseudo ne doit contenir que des caractères alphanumériques !')
             return None
         return username
 
@@ -28,5 +27,5 @@ class RegisterForm(ModelForm):
         password1 = self.cleaned_data['password1']
         password2 = self.cleaned_data['password2']
         if password1 != password2:
-            self.add_error('password2', 'Passwords are different !')
+            self.add_error('password2', 'Les mots de passe sont différents !')
         return super().clean()

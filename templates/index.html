@@ -38,6 +38,8 @@
                         </div>
                     </form>
 
+                    <p>Bienvenue {{ user }} !</p>
+
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
@@ -70,11 +72,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">NOM</span>
-                                <a class="text-primary" href="{% url 'app_logout' %}">DECONNEXION</a>
-                            </a>
+                            <a href="{% url 'app_logout' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">DECONNEXION</a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="userDropdown">
@@ -120,13 +118,13 @@
                         <!-- Approach -->
                         {% for object in object_list %}
                             <div class="card-pi shadow mb-4">
-                                <h6 class="m-0 font-weight-bold text-primary">{{ object.post_it.title }}</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">{{ object.title }}</h6>
                                 <a class="edit-postit" href="{% url 'app_update' object.pk %}"><i class="far fa-edit"></i></a>
                                 <a class="edit-postit" href="{% url 'app_delete' object.pk %}"><i class="far fa-trash-alt"></i></a>
-                                <p>A faire pour le : {{ object.post_it.toDoFor|date:"d/m/Y" }}</p>
+                                <p>A faire pour le : {{ object.toDoFor|date:"d/m/Y" }}</p>
 
 
-                                {% for task in object.task.all %}
+                                {% for task in object.tasks.all %}
                                     <div class="card-body">
                                         <input type="checkbox" name="task[]" value="{{ task }}">{{ task }}
                                     </div>

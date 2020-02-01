@@ -1,17 +1,17 @@
 :root {
-    --primary: #39fb39;
+    --primary: #fd734f;
 }
 
 .text-primary {
-  color: #000000 !important;
+  color: #1d262d !important;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #fb9214;
-  border-color: #fb9214;
+  color: #fcf1db;
+  background-color: #fd734f;
+  border-color: #fd734f;
 }
-
+/*#fb9c98*/
 .card-pi {
   margin: 10px;
     padding: 2%;
@@ -26,12 +26,7 @@
     -ms-transform: rotate(2deg);
     border-bottom-right-radius: 60px 10px;
 }
-.caro-t-nul{
-  display: none;
-}
-.caro-t-moche{
-  display: none;
-}
+
 .card-body {
   padding: 0 !important;
 }
@@ -41,7 +36,30 @@
 }
 
 .bg-image {
-  background-image: url("../img/2788058.jpeg");
+  background-image: url("../img/2788058.jpg");
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.card {
+  width: 75%;
+  margin-left: 12%;
+}
+
+form {
+  text-align: center;
+}
+
+a {
+  color: #1d262d;
+}
+
+a :hover {
+  color: #fd734f;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #f3a199;
+    border-color: #f3a199;
 }

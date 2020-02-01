@@ -7,7 +7,7 @@ from app.models import Person
 class LoginForm(ModelForm):
     username = forms.CharField(max_length=200, min_length=4,
                                widget=widgets.TextInput)
-    password = forms.CharField(max_length=200, min_length=4)
+    password = forms.CharField(max_length=200, min_length=4, widget=widgets.PasswordInput)
 
     class Meta:
         model = Person

@@ -15,19 +15,13 @@
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-4">ADD A POST-IT</h1>
                         </div>
+
+                        {{ user }}
+
                         <form action="" method="post">
                             {% csrf_token %}
                             {{ form }}
-{#                            <label for='{{ form.title }}'>Titre :</label>#}
-{#                            {{ form.title }}<br>#}
-{#                            <label for='{{ form.task }}'>Tâche :</label>#}
-{#                            <input name="task[]" maxlength="100" required>#}
-{#                            <input type="button" value="+" id="add_task" onclick="add()"><br>#}
-{#                            <div id="new_input"></div>#}
-{#                            <label for='{{ form.createdAt }}'>Date :</label>#}
-{#                            {{ form.createdAt }}<br>#}
-{#                            <label for='{{ form.toDoFor }}'>Pour le :</label>#}
-{#                            {{ form.toDoFor }}<br>#}
+
                             <input type="submit" class="btn btn-primary btn-user btn-block">
                         </form>
                         <hr>

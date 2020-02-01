@@ -13,17 +13,21 @@ from app.forms.login import LoginForm
 from app.forms.postit import PostItForm
 from app.forms.register import RegisterForm
 from app.forms.task import TaskForm
-from app.models import Person, PostIt, Task, PostItTask
+from app.models import Person, PostIt, Task
 
 
 class IndexView(LoginRequiredMixin, ListView):
     login_url = '/login/'
     template_name = 'index.html'
-    model = PostItTask
+    model = PostIt
+
+    def get_queryset(self):
+        return PostIt.objects.filter(user_id=Person.objects.get(user=self.request.user))
 
     def get_context_data(self, **kwargs):
         result = super().get_context_data(**kwargs)
         result['title'] = 'Vos post-it'
+        result['user'] = Person.objects.get(user=self.request.user)
         return result
 
 
@@ -72,17 +76,20 @@ class PostItView(FormView):
         return reverse('app_index')
 
     def form_valid(self, form):
-        # task = Task.objects.create(description=form.cleaned_data['task'])
         postIt = PostIt.objects.create(title=form.cleaned_data['title'],
                                        createdAt=form.cleaned_data['createdAt'],
                                        toDoFor=form.cleaned_data['toDoFor'],
                                        user=Person.objects.get(user=self.request.user))
-        tasks = form.cleaned_data['task']
-        postItTask = PostItTask(post_it=postIt)
-        postItTask.save()
+        tasks = form.cleaned_data['tasks']
         for task in tasks:
-            postItTask.task.add(task)
+            postIt.tasks.add(task)
         return HttpResponseRedirect(self.get_success_url())
+
+    def get_context_data(self, **kwargs):
+        result = super().get_context_data(**kwargs)
+        result['title'] = 'Vos post-it'
+        result['user'] = self.request.user.id
+        return result
 
 
 class TaskView(FormView):
@@ -105,7 +112,7 @@ class LogOutView(LogoutView):
 
 class PostItUpdate(UpdateView):
     template_name = 'post-it-update.html'
-    model = PostItTask
+    model = PostIt
     form_class = PostItForm
 
     def get_success_url(self):
@@ -114,7 +121,7 @@ class PostItUpdate(UpdateView):
 
 class PostItDelete(DeleteView):
     template_name = 'post-it-delete.html'
-    model = PostItTask
+    model = PostIt
     form_class = PostItForm
 
     def get_success_url(self):

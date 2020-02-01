@@ -23,6 +23,13 @@ class RegisterForm(ModelForm):
             return None
         return username
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        username = self.cleaned_data['username']
+        if email and User.objects.filter(email=email).exclude(username=username).exists():
+            self.add_error('email', 'Cette adresse mail existe déjà !')
+        return email
+
     def clean(self):
         password1 = self.cleaned_data['password1']
         password2 = self.cleaned_data['password2']

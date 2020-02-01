@@ -25,6 +25,7 @@
     -o-transform: rotate(2deg);
     -ms-transform: rotate(2deg);
     border-bottom-right-radius: 60px 10px;
+  text-align: left;
 }
 
 .card-body {
@@ -62,4 +63,8 @@ a :hover {
     color: #fff;
     background-color: #f3a199;
     border-color: #f3a199;
+}
+
+input[type=checkbox]:checked + label.strikethrough {
+  text-decoration: line-through;
 }

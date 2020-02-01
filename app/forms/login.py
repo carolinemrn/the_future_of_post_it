@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.forms import ModelForm, widgets
 from django import forms
 
@@ -16,3 +17,11 @@ class LoginForm(ModelForm):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(LoginForm, self).__init__(*args, **kwargs)
+
+    # def clean(self):
+    #     username = self.cleaned_data['username']
+    #     password = self.cleaned_data['password']
+    #     if not User.objects.filter(username=username, password=password).exists():
+    #         self.add_error('username', "Le pseudo ou le mot de passe n'existent pas!")
+    #     return username
+

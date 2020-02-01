@@ -15,6 +15,7 @@ class Person(models.Model):
 
 class Task(models.Model):
     description = models.CharField(max_length=200, blank=True, null=True, default='(no task)')
+    done = models.BooleanField(default=False)
 
     def __str__(self):
         return self.description if self.description is not None else '? ?'

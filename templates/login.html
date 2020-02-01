@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 
@@ -20,22 +21,23 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">connexion</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">{% trans 'log' %}</h1>
                                     </div>
                                     <form action="" method="post">
                                         {% csrf_token %}
-                                        <label>PSEUDO </label><br>
+                                        {{ form.errors }}
+                                        <label>{% trans 'username' %} </label><br>
                                         {{ form.username }}<br><br>
-                                        <label>MOT DE PASSE </label><br>
+                                        <label>{% trans 'password' %} </label><br>
                                         {{ form.password }}<br><br>
-                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="SE CONNECTER">
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="{% trans 'login' %}">
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="forgot-password.html">{% trans 'forgot_password' %}</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="{% url "app_register" %}">S'inscrire</a>
+                                        <a class="small" href="{% url "app_register" %}">{% trans 'register' %}</a>
                                     </div>
                                 </div>
                             </div>

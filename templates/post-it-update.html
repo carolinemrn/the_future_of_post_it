@@ -1,54 +1,49 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% load static %}
 
 
 {% block content %}
-<body class="bg-gradient-primary">
-<div class="container">
+    <body class="bg-image">
+    <div class="container">
+        <div class="row justify-content-center">
 
-    <div class="card o-hidden border-0 shadow-lg my-5">
-        <div class="card-body p-0">
-            <!-- Nested Row within Card Body -->
-            <div class="row">
-                <div class="col-lg-7">
-                    <div class="p-5">
-                        <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">UPDATE A POST-IT</h1>
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">{% trans 'update_pi' %}</h1>
+                                    </div>
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <label>{% trans 'title_pi' %} </label><br>
+                                        {{ form.title }}<br><br>
+                                        <label>{% trans 'task' %} </label><br>
+                                        {{ form.tasks }} <a class="btn btn-primary" href="{% url 'app_task' %}">+</a> <br><br>
+                                        <label>{% trans 'created_at' %} </label><br>
+                                        {{ form.createdAt }}<br><br>
+                                        <label>{% trans 'to_do' %} </label><br>
+                                        {{ form.toDoFor }}<br><br>
+                                        <input type="submit" class="btn btn-primary btn-user btn-block" value="{% trans 'send' %}">
+                                    </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a href="{% url 'app_index' %}" class="small">{% trans 'back' %}</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <form action="" method="post">
-                            {% csrf_token %}
-                            {{ form }}
-{#                            <label for='{{ form.title }}'>Titre :</label>#}
-{#                            {{ form.title }}<br>#}
-{#                            <label for='{{ form.task }}'>Tâche :</label>#}
-{#                            <input name="task[]" maxlength="100" required>#}
-{#                            <input type="button" value="+" id="add_task" onclick="add()"><br>#}
-{#                            <div id="new_input"></div>#}
-{#                            <label for='{{ form.createdAt }}'>Date :</label>#}
-{#                            {{ form.createdAt }}<br>#}
-{#                            <label for='{{ form.toDoFor }}'>Pour le :</label>#}
-{#                            {{ form.toDoFor }}<br>#}
-                            <input type="submit" class="btn btn-primary btn-user btn-block">
-                        </form>
-                        <hr>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
-
-</div>
-</body>
-
-<script type="text/javascript">
-    function add(){
-        let field = $(`{{ form.task }}`);
-        let label = $('<label/>');
-        label.text('Tâche : ');
-        $('#new_input').append(label);
-        $('#new_input').append(field);
-        $('#new_input').append('<br>');
-    }
-</script>
+    </body>
 
 {% endblock %}

@@ -14,6 +14,7 @@ from app.forms.postit import PostItForm
 from app.forms.register import RegisterForm
 from app.forms.task import TaskForm
 from app.models import Person, PostIt, Task
+from django.utils.translation import gettext_lazy as _
 
 
 class IndexView(LoginRequiredMixin, ListView):
@@ -22,11 +23,15 @@ class IndexView(LoginRequiredMixin, ListView):
     model = PostIt
 
     def get_queryset(self):
-        return PostIt.objects.filter(user_id=Person.objects.get(user=self.request.user))
+        if self.request.GET.get('search') is not None:
+            return PostIt.objects.filter(user_id=Person.objects.get(user=self.request.user),
+                                         title__icontains=self.request.GET.get("search"))
+        else:
+            return PostIt.objects.filter(user_id=Person.objects.get(user=self.request.user))
 
     def get_context_data(self, **kwargs):
         result = super().get_context_data(**kwargs)
-        result['title'] = 'Vos post-it'
+        result['title'] = _('Title')
         result['user'] = Person.objects.get(user=self.request.user)
         return result
 
@@ -84,12 +89,6 @@ class PostItView(FormView):
         for task in tasks:
             postIt.tasks.add(task)
         return HttpResponseRedirect(self.get_success_url())
-
-    def get_context_data(self, **kwargs):
-        result = super().get_context_data(**kwargs)
-        result['title'] = 'Vos post-it'
-        result['user'] = self.request.user.id
-        return result
 
 
 class TaskView(FormView):

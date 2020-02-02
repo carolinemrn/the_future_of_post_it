@@ -3,18 +3,22 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView, LogoutView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 from django.views.generic import FormView, ListView, UpdateView, DeleteView
+from django.views.generic.detail import SingleObjectMixin
 
 from app.forms.login import LoginForm
 from app.forms.postit import PostItForm
+from app.forms.postit_task import PostitTaskForm
 from app.forms.register import RegisterForm
 from app.forms.task import TaskForm
-from app.models import Person, PostIt, Task
+from app.models import Person, PostIt, Task, PostitTask
 from django.utils.translation import gettext_lazy as _
+
+from django.core.mail import send_mail
 
 
 class IndexView(LoginRequiredMixin, ListView):
@@ -33,7 +37,29 @@ class IndexView(LoginRequiredMixin, ListView):
         result = super().get_context_data(**kwargs)
         result['title'] = _('Title')
         result['user'] = Person.objects.get(user=self.request.user)
+        result['form'] = PostitTaskForm()
         return result
+
+
+class PostitTaskView(FormView):
+    template_name = 'index.html'
+    model = PostitTask
+    form_class = PostitTaskForm
+
+    def get_success_url(self):
+        return reverse('app_index')
+
+    def form_valid(self, form, **kwargs):
+        input_hidden = self.request.POST.get('task_pi', None)
+        input_hidden.split('_')
+        task = input_hidden[0]
+        postit = input_hidden[2] + input_hidden[3]
+        postittask = PostitTask.objects.filter(postit_id=postit).filter(task_id=task)
+        if postittask.filter(done=False):
+            postittask.update(done=True)
+        else:
+            postittask.update(done=False)
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class LogView(LoginView):
@@ -88,6 +114,7 @@ class PostItView(FormView):
         tasks = form.cleaned_data['tasks']
         for task in tasks:
             postIt.tasks.add(task)
+            PostitTask.objects.create(postit=postIt, task=task, done=False)
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -125,3 +152,5 @@ class PostItDelete(DeleteView):
 
     def get_success_url(self):
         return reverse('app_index')
+
+

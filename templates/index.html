@@ -77,9 +77,11 @@
 
                                 {% for task in object.tasks.all %}
                                     <div class="card-body">
-                                    <form method="GET" action="" id="task_done">
+                                    <form method="POST" action="{% url 'app_submit' %}" id="task_done">
                                     {%  csrf_token  %}
-                                        <input class="check_box" type="checkbox" value="{{ task.id }}" name="{{ task.id }}" {% if task.done == True %}checked{% endif %}>
+                                        {{ form.done }}
+                                        <input type="hidden" name="task_pi" value="{{ task.id }}_{{ object.id }}">
+{#                                        <input class="check_box" type="checkbox" value="{{ task.id }}_{{ object_id }}" name="{{ task.id }}_{{ object_id }}">#}
                                         <label class="strikethrough">{{ task.description }}</label>
                                     </form>
                                     </div>

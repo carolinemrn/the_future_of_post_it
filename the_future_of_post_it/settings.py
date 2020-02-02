@@ -49,7 +49,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 ROOT_URLCONF = 'the_future_of_post_it.urls'
 
 TEMPLATES = [
@@ -138,3 +137,11 @@ LANGUAGES = (
     ('en', _('English')),
     ('fr', _('French')),
 )
+
+# Email
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'contact@labeteabiere.fr'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'contact@labeteabiere.fr'
+EMAIL_HOST_PASSWORD = 'BEijing10_lababIKOULA'

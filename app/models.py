@@ -2,6 +2,7 @@ from datetime import date
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import SET_DEFAULT
 
 from the_future_of_post_it import settings
 
@@ -15,7 +16,6 @@ class Person(models.Model):
 
 class Task(models.Model):
     description = models.CharField(max_length=200, blank=True, null=True, default='(no task)')
-    done = models.BooleanField(default=False)
 
     def __str__(self):
         return self.description if self.description is not None else '? ?'
@@ -31,3 +31,8 @@ class PostIt(models.Model):
     def __str__(self):
         return f'{str(self.title)}'
 
+
+class PostitTask(models.Model):
+    postit = models.ForeignKey(PostIt, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    done = models.BooleanField(default=False)

@@ -31,6 +31,9 @@ class PostIt(models.Model):
     def __str__(self):
         return f'{str(self.title)}'
 
+    def get_postittask(self):
+        return PostitTask.objects.filter(postit_id=self.id)
+
 
 class PostitTask(models.Model):
     postit = models.ForeignKey(PostIt, on_delete=models.CASCADE)

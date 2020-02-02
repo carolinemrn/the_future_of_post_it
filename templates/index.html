@@ -77,14 +77,13 @@
                                 <p>A faire pour le : {{ object.toDoFor|date:"d/m/Y" }}</p>
 
 
-                                {% for task in object.tasks.all %}
+                                {% for postittask in object.get_postittask %}
                                     <div class="card-body">
                                     <form method="POST" action="{% url 'app_submit' %}" id="task_done">
                                     {%  csrf_token  %}
-                                        {{ form.done }}
-                                        <input type="hidden" name="task_pi" value="{{ task.id }}_{{ object.id }}">
-{#                                        <input class="check_box" type="checkbox" value="{{ task.id }}_{{ object_id }}" name="{{ task.id }}_{{ object_id }}">#}
-                                        <label class="strikethrough">{{ task.description }}</label>
+                                        <input type="checkbox" name="done" onclick="this.form.submit()" class="check_box" id="task_pi" {% if postittask.done == True %} checked {% endif %}>
+                                        <input type="hidden" name="task_pi" value="{{ postittask.task.id }}_{{ object.id }}">
+                                        <label class="strikethrough">{{ postittask.task.description }}</label>
                                     </form>
                                     </div>
                                 {% endfor %}

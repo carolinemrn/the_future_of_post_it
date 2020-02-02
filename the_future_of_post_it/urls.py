@@ -43,5 +43,6 @@ urlpatterns += i18n_patterns(
     path('add-task/', TaskView.as_view(), name='app_task'),
     path('update-postit/<int:pk>', PostItUpdate.as_view(), name='app_update'),
     path('delete-postit/<int:pk>', PostItDelete.as_view(), name='app_delete'),
+    path('submit/', PostitTaskView.as_view(), name='app_submit'),
 )
 

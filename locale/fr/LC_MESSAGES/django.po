@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-01 15:45+0000\n"
+"POT-Creation-Date: 2020-02-02 17:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,28 +18,29 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: app/views.py:35
+#: app/views.py:38
 msgid "Title"
 msgstr "Vos post it"
 
-#: templates/forgot-password.html:23
+#: templates/forgot-password.html:22
 msgid "forgot"
 msgstr "mot de passe oublié"
 
-#: templates/forgot-password.html:28 templates/register.html:28
+#: templates/forgot-password.html:27 templates/register.html:28
 msgid "email"
 msgstr "EMAIL"
 
-#: templates/forgot-password.html:30 templates/post-it-update.html:32
-#: templates/post-it.html:32 templates/task.html:26
+#: templates/forgot-password.html:29 templates/post-it-update.html:32
+#: templates/post-it.html:32 templates/task-postit-update.html:26
+#: templates/task.html:26
 msgid "send"
 msgstr "VALIDER"
 
-#: templates/forgot-password.html:34 templates/login.html:40
+#: templates/forgot-password.html:33 templates/login.html:37
 msgid "register"
 msgstr "S'inscrire"
 
-#: templates/forgot-password.html:37 templates/register.html:38
+#: templates/forgot-password.html:36 templates/register.html:38
 msgid "login_2"
 msgstr "Se connecter"
 
@@ -54,6 +55,10 @@ msgstr "DECONNEXION"
 #: templates/index.html:61
 msgid "add_post_it"
 msgstr "AJOUTER UN POST-IT"
+
+#: templates/index.html:63
+msgid "add_task_2"
+msgstr "AJOUTER UNE TÂCHE"
 
 #: templates/login.html:24
 msgid "log"
@@ -71,10 +76,6 @@ msgstr "MOT DE PASSE"
 msgid "login"
 msgstr "SE CONNECTER"
 
-#: templates/login.html:37
-msgid "forgot_password"
-msgstr "Mot de passe oublié ?"
-
 #: templates/post-it-delete.html:19
 msgid "delete_pi"
 msgstr "supprimer le post-it"
@@ -84,7 +85,8 @@ msgid "delete"
 msgstr "SUPPRIMER"
 
 #: templates/post-it-delete.html:27 templates/post-it-update.html:36
-#: templates/post-it.html:36 templates/task.html:30
+#: templates/post-it.html:36 templates/task-postit-update.html:30
+#: templates/task.html:30
 msgid "back"
 msgstr "Retour"
 
@@ -124,11 +126,11 @@ msgstr "CONFIRMEZ LE MOT DE PASSE"
 msgid "register_2"
 msgstr "S'INSCRIRE"
 
-#: templates/task.html:20
+#: templates/task-postit-update.html:20 templates/task.html:20
 msgid "add_task"
 msgstr "ajouter une tâche"
 
-#: templates/task.html:24
+#: templates/task-postit-update.html:24 templates/task.html:24
 msgid "description"
 msgstr "DESCRIPTION"
 
@@ -1572,3 +1574,6 @@ msgstr ""
 #: venv3.6/lib/python3.6/site-packages/django/views/templates/default_urlconf.html:409
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "forgot_password"
+#~ msgstr "Mot de passe oublié ?"

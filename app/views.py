@@ -123,7 +123,7 @@ class TaskView(FormView):
     form_class = TaskForm
 
     def get_success_url(self):
-        return reverse('app_postit')
+        return reverse('app_task')
 
     def form_valid(self, form):
         description = form.cleaned_data['description']

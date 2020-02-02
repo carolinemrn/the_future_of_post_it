@@ -49,7 +49,7 @@ class PostitTaskView(FormView):
     def get_success_url(self):
         return reverse('app_index')
 
-    def form_valid(self, form, **kwargs):
+    def form_valid(self, form):
         input_hidden = self.request.POST.get('task_pi', None)
         input_hidden.split('_')
         task = input_hidden[0]
@@ -144,11 +144,11 @@ class PostItUpdate(UpdateView):
     def get_success_url(self):
         return reverse('app_index')
 
-    # def form_valid(self, form):
-    #     tasks = form.cleaned_data['tasks']
-    #     for task in tasks:
-    #         task.save()
-    #     return HttpResponseRedirect(self.get_success_url())
+    def form_valid(self, form):
+        tasks = form.cleaned_data['tasks']
+        for task in tasks:
+            task.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class PostItDelete(DeleteView):
